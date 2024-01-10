@@ -20,6 +20,6 @@ public class  ContentCalendarApplication {
 		SpringApplication.run(ContentCalendarApplication.class, args);
 	}
 
-	
+
 
 }
