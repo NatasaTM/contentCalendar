@@ -1,7 +1,10 @@
 package com.natasatm.contentcalendar.controller;
 
 import com.natasatm.contentcalendar.model.Content;
+import com.natasatm.contentcalendar.model.Status;
 import com.natasatm.contentcalendar.repository.ContentCollectionRepository;
+import com.natasatm.contentcalendar.repository.ContentJdbcTemplateRepository;
+import com.natasatm.contentcalendar.repository.ContentRepository;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -16,10 +19,11 @@ import java.util.Optional;
 @CrossOrigin
 public class ContentController {
 
-    private final ContentCollectionRepository repository;
+    private final ContentRepository repository;
+
 
     @Autowired
-    public ContentController(ContentCollectionRepository repository) {
+    public ContentController(ContentRepository repository) {
         this.repository = repository;
     }
 
@@ -49,6 +53,17 @@ public class ContentController {
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @DeleteMapping("/{id}")
     public void delete(@PathVariable Integer id){
-        repository.delete(id);
+        repository.deleteById(id);
+    }
+
+    @GetMapping("/filter/{keyword}")
+    public List<Content> findByTitle(@PathVariable String keyword){
+
+        return repository.findAllByTitleContains(keyword);
+
+    }
+    @GetMapping("/filter/status/{status}")
+    public List<Content> findByStatus(@PathVariable Status status){
+        return repository.listByStatus(status);
     }
 }
