@@ -20,23 +20,6 @@ public class  ContentCalendarApplication {
 		SpringApplication.run(ContentCalendarApplication.class, args);
 	}
 
-	@Bean
-	CommandLineRunner commandLineRunner(ContentRepository repository){
-		return args -> {
-			// insert some data into the database
-			Content c = new Content(
-					null,
-					"Hello",
-					"All about ...",
-					Status.IDEA,
-					Type.VIDEO,
-					LocalDateTime.now(),
-					null,"");
-
-			repository.save(c);
-
-
-		};
-	}
+	
 
 }
